@@ -1,26 +1,31 @@
 import { Fragment } from "react";
 import { Route } from "react-router";
+import Header from "./Layout/Header/Header";
+import HomeCarousel from "./Layout/HomeCarousel/HomeCarousel";
 
+export const HomeTemplate = (props) => {
+  //path, exact, Component
 
+  const { Component, ...restProps } = props;
 
-export const HomeTemplate = (props) => { //path, exact, Component
+  return (
+    <Route
+      {...restProps}
+      render={(propsRoute) => {
+        //props.location,props.history,props.match
 
-    const {Component,...restProps} = props;
-
-    return <Route {...restProps}  render={(propsRoute)=> { //props.location,props.history,props.match
-
-        return <Fragment>
-            <h1 className="bg-black h-10 text-white">Đây là header homepage</h1>
-
-
+        return (
+          <Fragment>
+            <Header {...propsRoute} />
+            <HomeCarousel {...propsRoute} />
             <Component {...propsRoute} />
 
-
-
             <footer className="bg-black h-10 text-white">
-                Đây là footer homepage
+              Đây là footer homepage
             </footer>
-        </Fragment>
-    }} />
-
-} 
+          </Fragment>
+        );
+      }}
+    />
+  );
+};
